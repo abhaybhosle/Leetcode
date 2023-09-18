@@ -4,10 +4,10 @@ class Solution {
         int end = 0;
         for (int i = 0; i < s.length(); i++) {
             int len1 = expandFromCenter(s, i, i);
-            // b a  b 
+            // b a  b    odd length palindrome
             //   ij
             int len2 = expandFromCenter(s, i, i + 1);
-            //  b a a b
+            //  b a a b     even length palindrome
             //    i j
 
             int len = Math.max(len1, len2);
