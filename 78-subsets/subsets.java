@@ -1,31 +1,30 @@
-import java.util.ArrayList;
-import java.util.List;
+
 
 class Solution {
     public List<List<Integer>> subsets(int[] nums) {
-        // Create a list to store all subsets
+         // Create a list to store all subsets
         List<List<Integer>> result = new ArrayList<>();
+
         // Create a list to represent the current subset being considered
-        List<Integer> currentSubset = new ArrayList<>();
-        // Start the subset generation process
-        generateSubsets(nums, 0, currentSubset, result);
-        // Return the list of all subsets
+        List<Integer> tempSet = new ArrayList<>();
+        
+        backtracking(result,tempSet,0,nums); //start backtracking from the beginning
         return result;
     }
+    private void backtracking(List<List<Integer>> result,List<Integer> tempSet,int start,int nums[]){
+        //add the set to the result set
+        result.add(new ArrayList<>(tempSet));
 
-    // Recursive function to generate subsets
-    private void generateSubsets(int[] nums, int index, List<Integer> currentSubset, List<List<Integer>> result) {
-        // Add the currentSubset to the result as a new subset
-        result.add(new ArrayList<>(currentSubset));
+        for(int i = start; i < nums.length;i++){
+            //case of including the number
+            tempSet.add(nums[i]);
 
-        // Generate subsets by including nums[index] and recursively exploring
-        for (int i = index; i < nums.length; i++) {
-            // Include the current element in the currentSubset
-            currentSubset.add(nums[i]);
-            // Recursively generate subsets starting from the next index
-            generateSubsets(nums, i + 1, currentSubset, result); // Recursive call
-            // Backtrack: Remove the last element to explore other combinations
-            currentSubset.remove(currentSubset.size() - 1);
+            //backtrack the new subset
+            backtracking(result,tempSet,i+1,nums);
+
+            //case of not including the number
+            tempSet.remove(tempSet.size()-1);
+
         }
     }
 }
