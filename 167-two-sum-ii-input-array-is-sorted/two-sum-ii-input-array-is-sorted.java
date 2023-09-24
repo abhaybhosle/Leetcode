@@ -13,3 +13,4 @@ class Solution {
         return new int[] {left+1,right+1};
     }
 }
+//check solution png 
