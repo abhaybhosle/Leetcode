@@ -23,10 +23,3 @@ class Solution {
         return longestSeq;
     }
 }
-
-/*
- * 1) HashMap banao sab numbers ka aur sabko false rakha.
- * 2) Har ek number kae liye forward direction mae check kro , agar hae toh
- * update kro varna
- * 3) reverse mae check kro
- */
