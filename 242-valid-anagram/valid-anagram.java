@@ -1,25 +1,25 @@
 class Solution {
     public boolean isAnagram(String s, String t) {
+        // If lengths are different, they cannot be anagrams
         if (s.length() != t.length()) {
             return false;
         }
 
-        int[] count1 = new int[26];
-        int[] count2 = new int[26];
+        // Create hashmaps to store character frequencies
+        Map<Character, Integer> map1 = new HashMap<>();
+        Map<Character, Integer> map2 = new HashMap<>();
 
+        // Count frequency of characters in string s
         for (char c : s.toCharArray()) {
-            count1[c - 'a']++;
+            map1.put(c, map1.getOrDefault(c, 0) + 1);
         }
 
+        // Count frequency of characters in string t
         for (char c : t.toCharArray()) {
-            count2[c - 'a']++;
+            map2.put(c, map2.getOrDefault(c, 0) + 1);
         }
 
-        for (int i = 0; i < 26; i++) {
-            if (count1[i] != count2[i]) {
-                return false;
-            }
-        }
-        return true;
+        // Compare hashmaps
+        return map1.equals(map2);
     }
 }
