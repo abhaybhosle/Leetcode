@@ -1,35 +1,39 @@
 class Solution {
     public int numIslands(char[][] grid) {
-        if (grid == null || grid.length == 0) {
-            return 0;
-        }
+        int m = grid.length; // number of rows
+        int n = grid[0].length; // number of columns
 
-        int numIslands = 0;
-        int rows = grid.length;
-        int cols = grid[0].length;
+        boolean[][] vis = new boolean[m][n]; // to track visited cells
+        int res = 0; // to count the number of islands
 
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                if (grid[i][j] == '1') {
-                    numIslands += 1;
-                    dfs(grid, i, j);
+        // iterate through each cell in the grid
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                // if the cell is land ('1') and not visited yet
+                if (grid[i][j] == '1' && !vis[i][j]) {
+                    res++; // increment island count
+                    dfs(grid, i, j, vis); // perform DFS to mark the entire island as visited
                 }
             }
         }
-        return numIslands;
+        return res; // return the total number of islands
     }
 
-    private void dfs(char[][] grid, int i, int j) {
-        int rows = grid.length;
-        int cols = grid[0].length;
+    private void dfs(char[][] grid, int i, int j, boolean[][] vis) {
+        int rows = grid.length; // number of rows
+        int cols = grid[0].length; // number of columns
 
-        if (i < 0 || i >= rows || j < 0 || j >= cols || grid[i][j] == '0') {
-            return;
+        // boundary and base condition check
+        if (i < 0 || i >= rows || j < 0 || j >= cols || grid[i][j] == '0' || vis[i][j]) {
+            return; // return if out of bounds, water ('0'), or already visited
         }
-        grid[i][j] = '0';
-        dfs(grid, i + 1, j);
-        dfs(grid, i - 1, j);
-        dfs(grid, i, j + 1);
-        dfs(grid, i, j - 1);
+
+        vis[i][j] = true; // mark the current cell as visited
+
+        // perform DFS in all 4 directions
+        dfs(grid, i + 1, j, vis); // down
+        dfs(grid, i - 1, j, vis); // up
+        dfs(grid, i, j + 1, vis); // right
+        dfs(grid, i, j - 1, vis); // left
     }
 }
